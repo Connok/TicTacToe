@@ -16,6 +16,7 @@ const App = {
   },
   registerEventListeners() {
     //Done
+
     App.$.menu.addEventListener("click", (event) => {
       App.$.menuItems.classList.toggle("hidden");
       console.log(event.target);
@@ -31,15 +32,14 @@ const App = {
     //TODO
     App.$.squares.forEach((square) => {
       square.addEventListener("click", (event) => {
-        console.log(`Square with id ${event.target.id} was clicked`);
-        console.log(`Current player is ${App.state.currentPLayer}`);
-
         // Check if there is a play if so return early
         const hasMove = (squareId) => {
-          const existingMove = App.state.moves.find(move.squareId === squareId);
+          const existingMove = App.state.moves.find(
+            (move) => move.squareId === squareId
+          );
           return existingMove !== undefined;
         };
-        if (hasMove(square.id)) {
+        if (hasMove(+square.id)) {
           return;
         }
         // Determan crrent player icon to add to the score
@@ -60,7 +60,7 @@ const App = {
           squareId: +square.id,
           playerId: currentPlayer,
         });
-
+        console.log(playerId);
         square.replaceChildren(icon);
         // <i class="fa-solid fa-x yellow"></i>
         // <i class="fa-solid fa-o turquoise"></i>
