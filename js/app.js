@@ -9,6 +9,7 @@ const App = {
   },
   state: {
     currentPLayer: 1,
+    moves: [],
   },
 
   init() {
@@ -46,7 +47,12 @@ const App = {
         } else {
           icon.classList.add("fa-solid", "fa-o", "turquoise");
         }
-        App.state.currentPLayer = App.state.currentPLayer === 1 ? 2 : 1;
+        App.state.moves.push({
+          squareId: +square.id,
+          playerId: currentPlayer,
+        });
+        App.state.currentPLayer = currentPlayer === 1 ? 2 : 1;
+        console.log(App.state);
         square.replaceChildren(icon);
         // <i class="fa-solid fa-x yellow"></i>
         // <i class="fa-solid fa-o turquoise"></i>
