@@ -8,7 +8,6 @@ const App = {
     squares: document.querySelectorAll('[data-id="square"]'),
   },
   state: {
-    currentPLayer: 1,
     moves: [],
   },
 
@@ -36,11 +35,21 @@ const App = {
         console.log(`Current player is ${App.state.currentPLayer}`);
 
         // Check if there is a play if so return early
-        if (square.hasChildNodes()) {
+        const hasMove = (squareId) => {
+          const existingMove = App.state.moves.find(move.squareId === squareId);
+          return existingMove !== undefined;
+        };
+        if (hasMove(square.id)) {
           return;
         }
         // Determan crrent player icon to add to the score
-        const currentPlayer = App.state.currentPLayer;
+        const lastMove = App.state.moves.at(-1);
+        const getOppsitePlayer = (playerId) => (playerId === 1 ? 2 : 1);
+        const currentPlayer =
+          App.state.moves.length === 0
+            ? 1
+            : getOppsitePlayer(lastMove.playerId);
+
         const icon = document.createElement("i");
         if (currentPlayer === 1) {
           icon.classList.add("fa-solid", "fa-x", "yellow");
@@ -51,8 +60,7 @@ const App = {
           squareId: +square.id,
           playerId: currentPlayer,
         });
-        App.state.currentPLayer = currentPlayer === 1 ? 2 : 1;
-        console.log(App.state);
+
         square.replaceChildren(icon);
         // <i class="fa-solid fa-x yellow"></i>
         // <i class="fa-solid fa-o turquoise"></i>
