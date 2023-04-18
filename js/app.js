@@ -60,7 +60,7 @@ const App = {
           squareId: +square.id,
           playerId: currentPlayer,
         });
-        console.log(playerId);
+
         square.replaceChildren(icon);
         // <i class="fa-solid fa-x yellow"></i>
         // <i class="fa-solid fa-o turquoise"></i>
